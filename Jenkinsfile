@@ -29,6 +29,15 @@ pipeline {
             }
         }
 
+        stage("checkout") {
+            steps {
+                script {
+                    // Loads the file with name 'script.groovy' with is present in same folder!
+                   gv.checkOut()
+                }
+            }
+        }
+
         stage("build") {
             steps {
                 script {
@@ -45,12 +54,6 @@ pipeline {
                     params.executeTests == true
                 }
             }
-//             when {
-//                 expression {
-//                     params.executeTests
-//                 }
-//             }
-
             steps {
                 script {
                     gv.testApp()
@@ -70,10 +73,6 @@ pipeline {
         }
     }   
     post {
-        always {
-            // Will be executed ALWAYS!
-            echo "Always executed!"
-        }
         success {
             // Will be executed only in case of SUCCESS!
             echo "Executed! - SUCCESS"
@@ -81,6 +80,11 @@ pipeline {
         failure {
             // Will be executed only in case of FAILURE!
             echo "Executed! - FAILURE"
+        }
+        always {
+            echo "*******************************************"
+            echo "**************** FINISHED! ****************"
+            echo "*******************************************"
         }
     }
 }
