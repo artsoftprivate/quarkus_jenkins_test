@@ -1,19 +1,25 @@
 def gv
 
 pipeline {
+
     agent any
+
     tools {
         maven 'Maven'
     }
+
     environment {
         VERSION = '1.0.0'
         SERVER_CREDENTIALS = credentials('a0736a04-c399-4450-a094-2abb0c1ed094')
     }
+
     parameters {
         choice(name: 'VERSION', choices: ['1.0.0', '1.1.0', '1.2.0'], description: 'Version of webapp')
         booleanParam(name: 'executeTests', defaultValue: true, description: 'Testing switch ON/OFF')
     }
+
     stages {
+
         stage("init") {
             steps {
                 script {
@@ -22,6 +28,7 @@ pipeline {
                 }
             }
         }
+
         stage("build") {
             steps {
                 script {
@@ -29,6 +36,7 @@ pipeline {
                 }
             }
         }
+
         stage("test") {
 
             when {
@@ -42,12 +50,14 @@ pipeline {
 //                     params.executeTests
 //                 }
 //             }
+
             steps {
                 script {
                     gv.testApp()
                 }
             }
         }
+
         stage("deploy") {
             steps {
                 script {

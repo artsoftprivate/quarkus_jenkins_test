@@ -5,7 +5,6 @@
   <groupId>de.ngeda</groupId>
   <artifactId>quarkustest</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-
   <properties>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
     <maven.compiler.parameters>true</maven.compiler.parameters>
@@ -18,7 +17,6 @@
     <quarkus.platform.version>2.0.2.Final</quarkus.platform.version>
     <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
   </properties>
-
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -30,7 +28,6 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
   <dependencies>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -50,6 +47,10 @@
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-container-image-docker</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>
       <scope>test</scope>
     </dependency>
@@ -59,8 +60,8 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
   <build>
+    <finalName>quarkus_jenkins_test</finalName>
     <plugins>
       <plugin>
         <groupId>${quarkus.platform.group-id}</groupId>
@@ -95,9 +96,7 @@
         </configuration>
       </plugin>
     </plugins>
-    <finalName>quarkus_jenkins_test</finalName>
   </build>
-
   <profiles>
     <profile>
       <id>native</id>
@@ -107,6 +106,7 @@
         </property>
       </activation>
       <build>
+        <finalName>quarkus_jenkins_test</finalName>
         <plugins>
           <plugin>
             <artifactId>maven-failsafe-plugin</artifactId>
@@ -128,12 +128,10 @@
             </executions>
           </plugin>
         </plugins>
-        <finalName>quarkus_jenkins_test</finalName>
       </build>
       <properties>
         <quarkus.package.type>native</quarkus.package.type>
       </properties>
     </profile>
   </profiles>
-
 </project>
